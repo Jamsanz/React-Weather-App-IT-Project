@@ -14,19 +14,16 @@ export default function Page() {
 
   return (
     <div className="page">
-      {!forecast && (
-        <div>
-          {!isLoading && <Searchpage submitSearch={onSubmit} />}
-          {isLoading && <Loader />}
-        </div>
-      )}
-
-      {forecast && (
+      {forecast ? 
         <div>
           <SearchBar submitSearch={onSubmit}/>
           <WeatherBody forecast={forecast}/>
         </div>
-      )}
+        :
+        <div>
+          {isLoading ? <Loader /> : <Searchpage submitSearch={onSubmit} />}
+        </div>
+      }
     </div>
   );
 }

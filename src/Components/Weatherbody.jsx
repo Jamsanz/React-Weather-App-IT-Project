@@ -1,6 +1,11 @@
 import React from "react";
 import ForecastBody from "./ForecastBody";
 import "../styles.css";
+import cloudyImg from '../images/ricardo-gomez-angel-jg4pkrwaico-unsplash.jpg';
+import fogImg from '../images/ricardo-gomez-angel-jg4pkrwaico-unsplash.jpg';
+import clearImg from '../images/adam-mirza-5_7FCNELQt0-unsplash.jpg';
+import sunnyImg from '../images/adam-mirza-5_7FCNELQt0-unsplash.jpg';
+import rainyImg from '../images/reza-shayestehpour-Nw_D8v79PM4-unsplash.jpg';
 
 export default function WeatherBody({ forecast }) {
   let place_name = forecast.weather_data.location.name;
@@ -12,40 +17,37 @@ export default function WeatherBody({ forecast }) {
 
   const weather_background = {
     backgroundImage: "",
-    backgroundSize: "100%",
+    backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     width: "100%",
     height: "100%",
   };
+/*
+ Setting the background url path alone sometimes doesn't load react images 
+ e.g <img src="../images/adam-mirza-5_7FCNELQt0-unsplash.jpg" alt="" />
+ To make it work, you have to the image as a variable itself
+ e.g import image from  "../images/adam-mirza-5_7FCNELQt0-unsplash.jpg"
+ then use the img like this <img src={image} alt="" />
 
-  const astyle = {
-    backgroundImage: "url(./images/pexels-skitterphoto-3768.jpg)",
-    minWidth: "65%",
-    height: "100%",
-  };
-
+ As you can clearly see it, that's what I did to the background url.
+ */
   if (
-    current_condition.toLowerCase().includes("cloud") ||
+    current_condition.toLowerCase().includes("cloudy") ||
     current_condition.toLowerCase().includes("overcast")
   ) {
-    weather_background.backgroundImage =
-      "url(./images/ricardo-gomez-angel-jg4pkrwaico-unsplash.jpg)";
+    weather_background.backgroundImage = `url(${cloudyImg})`;
   } else if (
     current_condition.toLowerCase().includes("mist") ||
     current_condition.toLowerCase().includes("fog")
   ) {
-    weather_background.backgroundImage =
-      "url(./images/ricardo-gomez-angel-jg4pkrwaico-unsplash.jpg)";
+    weather_background.backgroundImage = `url(${fogImg})`;
   } else if (current_condition.toLowerCase().includes("clear")) {
-    weather_background.backgroundImage =
-      "url(./images/adam-mirza-5_7FCNELQt0-unsplash.jpg)";
+    weather_background.backgroundImage = `url(${clearImg})`;
   } else if (current_condition.toLowerCase().includes("sunny")) {
-    weather_background.backgroundImage =
-      "url(./images/pexels-skitterphoto-3768.jpg)";
+    weather_background.backgroundImage = `url(${sunnyImg})`;
   } else if (current_condition.toLowerCase().includes("rain")) {
-    weather_background.backgroundImage =
-      "url(./images/reza-shayestehpour-Nw_D8v79PM4-unsplash.jpg)";
+    weather_background.backgroundImage = `url(${rainyImg})`;
   }
 
   let tomorrow_date = forecast.weather_data.forecast.forecastday[1].date;
@@ -97,7 +99,11 @@ export default function WeatherBody({ forecast }) {
                   </div>
                 </div>
               </div>
-              <div className="current-weather-secondary" >
+              {/* The second error was from here. Not setting the style to weather_background */}
+              <div
+                style={weather_background}
+                className="current-weather-secondary"
+              >
                 <div className="weather-tid-bits-row">
                   <div className="weather-tid-bits">
                     <h2>WIND SPEED</h2>

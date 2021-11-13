@@ -8,12 +8,11 @@ const useForecast = () => {
   const [forecast, setForecast] = useState(null);
 
   const submitRequest = async (location) => {
-    const API_URL = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location.value}&days=3&aqi=no&alerts=no
-    `;
-    const { data } = await axios(API_URL);
-    const weather_data = data;
-
     try {
+      const API_URL = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location.value}&days=3&aqi=no&alerts=no
+      `;
+      const { data } = await axios(API_URL);
+      const weather_data = data;
       setLoading(true);
 
       setForecast({ weather_data });

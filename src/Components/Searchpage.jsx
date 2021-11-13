@@ -5,14 +5,7 @@ import PropTypes from "prop-types";
 export default function Searchpage({ submitSearch }) {
   const [location, setLocation] = useState("");
 
-  const inputHandler = (event) => {
-    let the_value = event.target.value
-    setLocation(the_value);
-  };
-
   const submitHandler = (e) => {
-    if (!location || location === "") return;
-
     submitSearch(location);
     setLocation('');
     e.preventDefault();
@@ -25,10 +18,15 @@ export default function Searchpage({ submitSearch }) {
           id="city_name"
           type="text"
           placeholder="Enter city name..."
-          onChange={inputHandler}
+          onChange={(e)=> setLocation(e.target.value)}
           value={location}
         />
-        <button onClick={submitHandler}>Search</button>
+        <button
+          onClick={submitHandler}
+          disabled={location === ""}
+        >
+          Search
+        </button>
       </form>
     </div>
   );
